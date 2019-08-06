@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Panel de Control</h1>
+
+<table class="table table-striped table-hover ">
+  <thead>
+    <tr>
+      <th>Usuario</th>
+      <th>Tipo de Usuario</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.role %></td>
+        <td>
+          <% if can?(:update, user) %>
+            <%= link_to 'Editar',  pages_change_role_path(user), class: 'btn btn-sm btn-success' %></td>
+          <% end %>
+        <td>
+          <% if can?(:destroy, user) %>
+            <%= link_to 'Eliminar', pages_remove_user_path(user), method: :delete, data: { confirm: 'Estás seguro que deseas eliminar el Usuario?' }, class: 'btn btn-sm btn-danger' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Nuevo Post', new_post_path, class: 'btn btn-primary' %>
